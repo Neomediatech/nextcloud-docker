@@ -11,6 +11,8 @@ x-environment: &common-vars
 services:
   db:
     image: mariadb
+    deploy:
+      replicas: 1    
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     volumes:
@@ -20,12 +22,16 @@ services:
 
   redis:
     image: redis:alpine
+    deploy:
+      replicas: 1    
     restart: always
     environment:
       TZ: Europe/Rome
 
   app:
     image: nextcloud:stable-fpm-alpine
+    deploy:
+      replicas: 1    
     restart: always
     volumes:
       - nextcloud:/var/www/html
@@ -42,6 +48,8 @@ services:
 
   web:
     image: nginx:stable
+    deploy:
+      replicas: 1    
     restart: always
     environment:
       TZ: Europe/Rome    
@@ -59,6 +67,8 @@ services:
 
   cron:
     image: nextcloud:stable-fpm-alpine
+    deploy:
+      replicas: 1    
     restart: always
     environment:
       TZ: Europe/Rome    
@@ -75,6 +85,8 @@ services:
 
   onlyoffice:
     image: onlyoffice/documentserver:latest
+    deploy:
+      replicas: 1    
     stdin_open: true
     tty: true
     restart: always
