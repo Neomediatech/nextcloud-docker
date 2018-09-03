@@ -98,14 +98,14 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    links:
-      - db
     environment:
       << : *common-vars    
       PMA_HOST: db
       PMA_PORT: 3306
     ports:
       - '8280:80'
+    depends_on:
+      - db
 
 volumes:
   nextcloud:
