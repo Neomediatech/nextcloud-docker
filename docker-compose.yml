@@ -29,7 +29,7 @@ services:
       TZ: Europe/Rome
 
   app:
-    image: nextcloud:15-fpm
+    image: nextcloud:16-fpm
     deploy:
       replicas: 1    
     restart: always
