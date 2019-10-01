@@ -10,7 +10,7 @@ x-environment: &common-vars
 
 services:
   db:
-    image: mariadb:10.4
+    image: mariadb:10
     deploy:
       replicas: 1    
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
@@ -47,7 +47,7 @@ services:
       - redis
 
   web:
-    image: nginx:1.16
+    image: nginx:1.17
     deploy:
       replicas: 1    
     restart: always
