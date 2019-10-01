@@ -16,7 +16,7 @@ services:
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     volumes:
-      - /srv/data/docker/containers/nextcloud-app/mariadb/db:/var/lib/mysql
+      - db:/var/lib/mysql
     environment:
       << : *common-vars
 
@@ -34,10 +34,10 @@ services:
       replicas: 1    
     restart: always
     volumes:
-      - nextcloud:/var/www/html
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/data:/var/www/html/data
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/apps:/var/www/html/apps
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/config:/var/www/html/config
+      - nc_html:/var/www/html
+      - nc_data:/var/www/html/data
+      - nc_apps:/var/www/html/apps
+      - nc_config:/var/www/html/config
       - /srv/data/docker/containers/nextcloud-app/redis.config.php:/usr/src/nextcloud/config/redis.config.php
     environment:
       << : *common-vars
@@ -56,11 +56,11 @@ services:
     ports:
       - 8080:80
     volumes:
-      - nextcloud:/var/www/html:ro
+      - nc_html:/var/www/html:ro
       - /srv/data/docker/containers/nextcloud-app/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/data:/var/www/html/data
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/apps:/var/www/html/apps
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/config:/var/www/html/config
+      - nc_data:/var/www/html/data
+      - nc_apps:/var/www/html/apps
+      - nc_config:/var/www/html/config
       - /srv/data/docker/containers/nextcloud-app/redis.config.php:/usr/src/nextcloud/config/redis.config.php
     depends_on:
       - app
@@ -73,10 +73,10 @@ services:
     environment:
       TZ: Europe/Rome    
     volumes:
-      - nextcloud:/var/www/html
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/data:/var/www/html/data
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/apps:/var/www/html/apps
-      - /srv/data/docker/containers/nextcloud-app/nextcloud/config:/var/www/html/config
+      - nc_html:/var/www/html:ro
+      - nc_data:/var/www/html/data
+      - nc_apps:/var/www/html/apps
+      - nc_config:/var/www/html/config
       - /srv/data/docker/containers/nextcloud-app/redis.config.php:/usr/src/nextcloud/config/redis.config.php
     entrypoint: /cron.sh
     depends_on:
@@ -108,4 +108,33 @@ services:
       - db
 
 volumes:
-  nextcloud:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/data/docker/containers/nextcloud-app/mariadb/db
+  nc_html:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/data/docker/containers/nextcloud-app/nextcloud/html
+  nc_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/data/docker/containers/nextcloud-app/nextcloud/data
+  nc_apps:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/data/docker/containers/nextcloud-app/nextcloud/apps
+  nc_config:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/data/docker/containers/nextcloud-app/nextcloud/config
