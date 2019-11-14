@@ -1,4 +1,5 @@
 <?php
+/*
 $CONFIG = array (
   'memcache.locking' => '\OC\Memcache\Redis',
   'redis' => array(
@@ -6,3 +7,4 @@ $CONFIG = array (
     'port' => 6379,
   ),
 );
+*/
