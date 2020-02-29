@@ -61,7 +61,10 @@ services:
       replicas: 1    
     restart: always
     ports:
-      - 8080:80
+      - target: 80
+        published: 8080
+        protocol: tcp
+        mode: host
     volumes:
       - *v-tz
       - *v-ltime
