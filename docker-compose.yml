@@ -35,7 +35,7 @@ services:
       << : *common-vars
 
   app:
-    image: nextcloud:17-fpm
+    image: nextcloud:18-fpm
     hostname: nc
     deploy:
       replicas: 1    
@@ -78,7 +78,7 @@ services:
       - app
 
   cron:
-    image: nextcloud:17-fpm
+    image: nextcloud:18-fpm
     hostname: nc-cron
     deploy:
       replicas: 1    
