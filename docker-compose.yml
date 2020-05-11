@@ -107,6 +107,10 @@ services:
       - *v-tz
       - *v-ltime
       - *v-lgen
+      - oo_data: /var/www/onlyoffice/Data
+      - oo_pg: /var/lib/postgresql
+      - oo_rabbit: /var/lib/rabbitmq
+      - oo_redis: /var/lib/redis
     ports:
       - 8081:80
       - 8443:443
@@ -159,6 +163,28 @@ volumes:
       device: ${STACK_BASE_PATH}/nextcloud/config
   oo_logs:
   oo_lib:
-  oo_data:
-  oo_pg:
   oo_fonts:
+  oo_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${STACK_BASE_PATH}/onlyoffice/data
+  oo_pg:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${STACK_BASE_PATH}/onlyoffice/postgresql/db
+  oo_rabbit:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${STACK_BASE_PATH}/onlyoffice/rabbitmq/db
+  oo_redis:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${STACK_BASE_PATH}/onlyoffice/redis/data
