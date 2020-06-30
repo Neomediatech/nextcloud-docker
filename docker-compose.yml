@@ -112,6 +112,7 @@ services:
       - oo_rabbit:/var/lib/rabbitmq
       - oo_redis:/var/lib/redis
       - oo_lib:/var/lib/onlyoffice
+      - oo_fonts:/usr/share/fonts/truetype/custom
     ports:
       - 8081:80
       - 8443:443
@@ -170,6 +171,11 @@ volumes:
       o: bind
       device: ${STACK_BASE_PATH}/onlyoffice/lib
   oo_fonts:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${STACK_BASE_PATH}/onlyoffice/fonts
   oo_data:
     driver: local
     driver_opts:
