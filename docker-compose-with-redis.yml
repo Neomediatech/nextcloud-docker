@@ -25,8 +25,23 @@ services:
     deploy:
       replicas: 1    
     restart: always
+    hostname: redis
     environment:
       TZ: Europe/Rome
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_db:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 20s
+      timeout: 10s
+      retries: 5
+    # according to https://github.com/moby/moby/pull/37701#issuecomment-448014841
+    # on docker 19.03 you will be able to set /proc/sys/net/core/somaxconn to 511 instead of default 128
+    # like this example below (maybe syntax will change)
+    #sysctls:
+    #  - net.core.somaxconn=511
+    stop_grace_period: 30s
 
   app:
     image: nextcloud:16-fpm
