@@ -30,7 +30,7 @@ services:
       TZ: Europe/Rome
     command: ["redis-server", "--appendonly", "yes"]
     volumes:
-      - redis_db:/data
+      - nc_redis_db:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 20s
@@ -153,3 +153,9 @@ volumes:
       type: none
       o: bind
       device: /srv/data/docker/containers/nextcloud-app/nextcloud/config
+  nc_redis_db:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /srv/data/docker/containers/nextcloud-app/redis/db
