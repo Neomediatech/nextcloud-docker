@@ -55,7 +55,7 @@ services:
       - db
 
   web:
-    image: nginx:1.17
+    image: nginx:1.18
     hostname: nginx
     deploy:
       replicas: 1    
