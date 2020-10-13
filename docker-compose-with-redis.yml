@@ -28,7 +28,7 @@ services:
     hostname: redis
     environment:
       TZ: Europe/Rome
-    command: ["redis-server", "--appendonly", "yes"]
+    #command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - nc_redis_db:/data
     healthcheck:
@@ -44,7 +44,7 @@ services:
     stop_grace_period: 30s
 
   app:
-    image: nextcloud:16-fpm
+    image: nextcloud:19-fpm
     deploy:
       replicas: 1    
     restart: always
@@ -62,7 +62,7 @@ services:
       - redis
 
   web:
-    image: nginx:1.17
+    image: nginx:1.18
     deploy:
       replicas: 1    
     restart: always
@@ -81,7 +81,7 @@ services:
       - app
 
   cron:
-    image: nextcloud:16-fpm
+    image: nextcloud:19-fpm
     deploy:
       replicas: 1    
     restart: always
