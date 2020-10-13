@@ -140,7 +140,7 @@ services:
     hostname: redis
     environment:
       TZ: Europe/Rome
-    command: ["redis-server", "--appendonly", "yes"]
+    #command: ["redis-server", "--appendonly", "yes"]
     volumes:
       - nc_redis_db:/data
     healthcheck:
