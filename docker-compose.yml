@@ -48,7 +48,9 @@ services:
       - nc_data:/var/www/html/data
       - nc_apps:/var/www/html/custom_apps
       - nc_config:/var/www/html/config
-      - nc_shares:/media
+      - nc_share1:/media/${NC_SHARE1}
+      - nc_share2:/media/${NC_SHARE2}
+      - nc_share3:/media/${NC_SHARE3}
     environment:
       << : *common-vars
       MYSQL_HOST : db
@@ -193,12 +195,24 @@ volumes:
       type: none
       o: bind
       device: /srv/data/docker/containers/nextcloud-app/redis/db
-  nc_shares:
+  nc_share1:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /media      
+      device: /media/${NC_SHARE1}
+  nc_share2:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /media/${NC_SHARE2}
+  nc_share3:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /media/${NC_SHARE3}
   oo_logs:
   oo_lib:
     driver: local
