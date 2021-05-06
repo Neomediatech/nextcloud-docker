@@ -35,7 +35,7 @@ services:
       << : *common-vars
 
   app:
-    image: nextcloud:19-fpm
+    image: nextcloud:20-fpm
     hostname: nc
     deploy:
       replicas: 1    
@@ -58,7 +58,7 @@ services:
       - db
 
   web:
-    image: nginx:1.18
+    image: nginx:1.20
     hostname: nginx
     deploy:
       replicas: 1    
@@ -81,7 +81,7 @@ services:
       - app
 
   cron:
-    image: nextcloud:19-fpm
+    image: nextcloud:20-fpm
     hostname: nc-cron
     deploy:
       replicas: 1    
@@ -136,7 +136,7 @@ services:
       - db
 
   redis:
-    image: redis:5-alpine
+    image: redis:6-alpine
     deploy:
       replicas: 1    
     restart: always
