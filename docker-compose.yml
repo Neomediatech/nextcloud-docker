@@ -24,7 +24,7 @@ services:
     hostname: db
     deploy:
       replicas: 1    
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW --innodb_read_only_compressed=OFF
     restart: always
     volumes:
       - *v-tz
